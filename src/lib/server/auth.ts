@@ -30,16 +30,23 @@ export async function validateSessionToken(token: string) {
 	const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
 	const [result] = await db
 		.select({
-			// Adjust user table here to tweak returned data
-			user: { id: table.users.id, username: table.users.username },
+			user: { id: table.users.id, username: table.users.username, slug: table.users.slug },
 			session: table.sessions
 		})
 		.from(table.sessions)
 		.innerJoin(table.users, eq(table.sessions.userId, table.users.id))
 		.where(eq(table.sessions.id, sessionId));
 
+	let shops = null;
+	if (result) {
+		shops = await db
+			.select()
+			.from(table.shops)
+			.where(eq(table.shops.ownerId, result.user.id));
+	}
+
 	if (!result) {
-		return { session: null, user: null };
+		return { session: null, user: null, shops: null };
 	}
 	const { session, user } = result;
 
@@ -58,7 +65,7 @@ export async function validateSessionToken(token: string) {
 			.where(eq(table.sessions.id, session.id));
 	}
 
-	return { session, user };
+	return { session, user, shops };
 }
 
 export type SessionValidationResult = Awaited<ReturnType<typeof validateSessionToken>>;

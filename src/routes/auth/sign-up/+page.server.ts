@@ -7,6 +7,7 @@ import { verify } from '@node-rs/argon2';
 import * as auth from '$lib/server/auth';
 import { redirect } from '@sveltejs/kit';
 import { hash } from '@node-rs/argon2';
+import { usernameToSlug } from '$lib/server/slug';
 
 export const actions: Actions = {
     signUp: async (e) => {
@@ -63,7 +64,8 @@ export const actions: Actions = {
                 id: userId,
                 email: email.toLowerCase(),
                 username: username.toLowerCase(),
-                passwordHash: passwordHash
+                passwordHash: passwordHash,
+                slug: usernameToSlug(username)
             });
 
             const sessionToken = auth.generateSessionToken();

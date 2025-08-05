@@ -5,10 +5,12 @@ declare global {
 		interface Locals {
 			user: SessionValidationResult['user'];
 			session: SessionValidationResult['session'];
+			shops: SessionValidationResult['shops'];
 		}
 		interface PageData {
 			user: SessionValidationResult['user'];
 			session: SessionValidationResult['session'];
+			shops: SessionValidationResult['shops'];
 		}
 	} // interface Error {}
 	// interface Locals {}

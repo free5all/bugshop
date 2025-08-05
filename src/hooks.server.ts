@@ -1,5 +1,14 @@
 import type { Handle } from '@sveltejs/kit';
 import * as auth from '$lib/server/auth';
+import { sequence } from '@sveltejs/kit/hooks';
+
+const lowercaseUrl: Handle = async ({ event, resolve }) => {
+	const lowercase = event.url.pathname.toLowerCase();
+	if (lowercase !== event.url.pathname) {
+		return Response.redirect(new URL(lowercase, event.url), 301);
+	}
+	return resolve(event);
+};
 
 const handleAuth: Handle = async ({ event, resolve }) => {
 	const sessionToken = event.cookies.get(auth.sessionCookieName);
@@ -10,7 +19,7 @@ const handleAuth: Handle = async ({ event, resolve }) => {
 		return resolve(event);
 	}
 
-	const { session, user } = await auth.validateSessionToken(sessionToken);
+	const { session, user, shops } = await auth.validateSessionToken(sessionToken);
 
 	if (session) {
 		auth.setSessionTokenCookie(event, sessionToken, session.expiresAt);
@@ -19,8 +28,9 @@ const handleAuth: Handle = async ({ event, resolve }) => {
 	}
 
 	event.locals.user = user;
+	event.locals.shops = shops;
 	event.locals.session = session;
 	return resolve(event);
 };
 
-export const handle: Handle = handleAuth;
+export const handle: Handle = sequence(lowercaseUrl, handleAuth);

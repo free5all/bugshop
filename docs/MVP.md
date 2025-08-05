@@ -24,7 +24,7 @@
     - View inquiries/messages
     - Toggle availability
 7. Basic messaging system
-    - Allow buyers to message sellers directly
+    - Allow buyers to message shops (not individual users) directly
     - Notifications (in-dashboard as well as email after a delay)
 8. Reviews (thumbs up + comment)
     - For sellers at first, not individual listings
