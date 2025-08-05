@@ -1,11 +1,11 @@
 CREATE TABLE "sessions" (
 	"id" text PRIMARY KEY NOT NULL,
-	"user_id" integer NOT NULL,
+	"user_id" uuid NOT NULL,
 	"expires_at" timestamp NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE "users" (
-	"id" serial PRIMARY KEY NOT NULL,
+	"id" uuid PRIMARY KEY NOT NULL,
 	"username" text NOT NULL,
 	"email" text NOT NULL,
 	CONSTRAINT "users_username_unique" UNIQUE("username"),

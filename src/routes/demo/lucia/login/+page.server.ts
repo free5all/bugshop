@@ -29,7 +29,7 @@ export const actions: Actions = {
 			return fail(400, { message: 'Invalid password (min 6, max 255 characters)' });
 		}
 
-		const results = await db.select().from(table.user).where(eq(table.user.username, username));
+		const results = await db.select().from(table.users).where(eq(table.users.username, username));
 
 		const existingUser = results.at(0);
 		if (!existingUser) {
@@ -55,6 +55,7 @@ export const actions: Actions = {
 	register: async (event) => {
 		const formData = await event.request.formData();
 		const username = formData.get('username');
+		const email = formData.get('email');
 		const password = formData.get('password');
 
 		if (!validateUsername(username)) {
@@ -62,6 +63,9 @@ export const actions: Actions = {
 		}
 		if (!validatePassword(password)) {
 			return fail(400, { message: 'Invalid password' });
+		}
+		if (typeof email !== 'string' || !email.includes('@')) {
+			return fail(400, { message: 'Invalid email address' });
 		}
 
 		const userId = generateUserId();
@@ -74,7 +78,7 @@ export const actions: Actions = {
 		});
 
 		try {
-			await db.insert(table.user).values({ id: userId, username, passwordHash });
+			await db.insert(table.users).values({ id: userId, username, email, passwordHash });
 
 			const sessionToken = auth.generateSessionToken();
 			const session = await auth.createSession(sessionToken, userId);

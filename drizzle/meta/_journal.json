@@ -1,12 +1,19 @@
 {
   "version": "7",
-  "dialect": "sqlite",
+  "dialect": "postgresql",
   "entries": [
     {
       "idx": 0,
       "version": "7",
-      "when": 1754353688419,
-      "tag": "0000_adorable_fabian_cortez",
+      "when": 1754355154859,
+      "tag": "0000_typical_george_stacy",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1754355258495,
+      "tag": "0001_late_next_avengers",
       "breakpoints": true
     }
   ]
