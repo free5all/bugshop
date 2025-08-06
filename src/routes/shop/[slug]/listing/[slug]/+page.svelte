@@ -1,4 +1,6 @@
 <script lang="ts">
+	import AddToCartButton from '$lib/components/AddToCartButton.svelte';
+
     const { data } = $props();
 
     const listing = data.listing;
@@ -50,9 +52,7 @@
                 {/if}
             </div>
             <div>
-                <button class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition">
-                    Add to Cart
-                </button>
+                <AddToCartButton listingId={listing.id} />
             </div>
         </div>
     </div>

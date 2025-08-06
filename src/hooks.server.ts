@@ -19,7 +19,7 @@ const handleAuth: Handle = async ({ event, resolve }) => {
 		return resolve(event);
 	}
 
-	const { session, user, shops } = await auth.validateSessionToken(sessionToken);
+	const { session, user, shops, cart, cartItems } = await auth.validateSessionToken(sessionToken);
 
 	if (session) {
 		auth.setSessionTokenCookie(event, sessionToken, session.expiresAt);
@@ -29,6 +29,8 @@ const handleAuth: Handle = async ({ event, resolve }) => {
 
 	event.locals.user = user;
 	event.locals.shops = shops;
+	event.locals.cart = cart;
+	event.locals.cartItems = cartItems;
 	event.locals.session = session;
 	return resolve(event);
 };

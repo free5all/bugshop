@@ -46,6 +46,24 @@ export const listings = p.pgTable('listings', {
 	slug: p.text().notNull().unique()
 });
 
+export const carts = p.pgTable('carts', {
+	id: p.uuid('id').primaryKey(),
+	userId: p.uuid('user_id').notNull().unique().references(() => users.id),
+	createdAt: p.timestamp('created_at', { mode: 'date' }).notNull().defaultNow()
+});
+
+export const cartItems = p.pgTable('cart_items', {
+	id: p.uuid('id').primaryKey(),
+	cartId: p.uuid('cart_id').notNull().references(() => carts.id),
+	listingId: p.uuid('listing_id').notNull().references(() => listings.id),
+	quantity: p.integer().notNull(),
+	addedAt: p.timestamp('added_at', { mode: 'date' }).notNull().defaultNow()
+});
+
+export type CartItem = typeof cartItems.$inferSelect;
+
+export type Cart = typeof carts.$inferSelect;
+
 export type Listing = typeof listings.$inferSelect;
 
 export type Shop = typeof shops.$inferSelect;

@@ -6,11 +6,15 @@ declare global {
 			user: SessionValidationResult['user'];
 			session: SessionValidationResult['session'];
 			shops: SessionValidationResult['shops'];
+			cart?: SessionValidationResult['cart'];
+			cartItems?: SessionValidationResult['cartItems'];
 		}
 		interface PageData {
 			user: SessionValidationResult['user'];
 			session: SessionValidationResult['session'];
 			shops: SessionValidationResult['shops'];
+			cart?: SessionValidationResult['cart'];
+			cartItems?: SessionValidationResult['cartItems'];
 		}
 	} // interface Error {}
 	// interface Locals {}

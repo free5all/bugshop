@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
+	import { onMount } from 'svelte'
 	import SearchBox from './SearchBox.svelte';
 
 	let active = $state(false);
@@ -29,6 +30,12 @@
 
 	{#if page.data.user}
 		<div class="flex items-center gap-4">
+			{#if page.data.cartItems}
+				<a href="/cart" class="relative flex items-center">
+					Cart ({page.data.cartItems.reduce((sum, item) => sum + (item.item.quantity || 0), 0)})
+				</a>
+			{/if}
+
 			{#if page.data.shops && page.data.shops.length > 0}
 				<a
 					href="/my-shops"
