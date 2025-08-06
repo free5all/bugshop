@@ -28,6 +28,13 @@
             </div>
         {/if}
 
+        <!-- Create Listing Button -->
+        <div class="flex justify-end mt-6">
+            <a href={`/shop/${data.shop.shops?.slug}/listing/new`} class="inline-block bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700 transition font-semibold">
+                + Create Listing
+            </a>
+        </div>
+
         {#if data.thisShopsListings && data.thisShopsListings.length > 0}
             <div class="mt-8">
                 <h2 class="text-2xl font-semibold mb-4">Listings</h2>

@@ -6,8 +6,6 @@ export const load: LayoutServerLoad = async (event) => {
         return { user: null, session: null, shops: null, cart: null, cartItems: null };
     }
 
-    console.log(event.locals.cartItems, event.locals.cart);
-
     // Return the user and session data
     return {
         user: event.locals.user,

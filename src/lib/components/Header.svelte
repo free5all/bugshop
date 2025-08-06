@@ -31,8 +31,8 @@
 	{#if page.data.user}
 		<div class="flex items-center gap-4">
 			{#if page.data.cartItems}
-				<a href="/cart" class="relative flex items-center">
-					Cart ({page.data.cartItems.reduce((sum, item) => sum + (item.item.quantity || 0), 0)})
+				<a href="/checkout" class="relative flex items-center">
+					Cart ({page.data.cartItems.reduce((sum, item) => sum + (item.item?.quantity || 0), 0)})
 				</a>
 			{/if}
 
