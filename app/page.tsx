@@ -1,4 +1,5 @@
 import { Bug, User, Heart, ShoppingCart, Search, Home, Leaf, Droplets, Thermometer, Package, ChevronRight, Shield, Truck, Users, Award, BadgeCheck, Star, MapPin, Clock } from "lucide-react";
+import Link from "next/link";
 
 const SiteName = "ArthropodShop"
 
@@ -8,14 +9,14 @@ export default function HomePage() {
       <header className="bg-white shadow-sm border-b border-green-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <a className="flex items-center space-x-2" href="/">
+            <Link className="flex items-center space-x-2" href="/">
               <div className="bg-green-600 p-2 rounded-lg">
                 <span className="text-white font-semibold">
                   <Bug className="h-6 w-6 text-white" />
                 </span>
               </div>
               <span className="text-xl sm:text-2xl font-bold text-green-800">{SiteName}</span>
-            </a>
+            </Link >
             <div className="hidden md:flex flex-1 max-w-2xl mx-8">
               <div className="relative w-full">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
@@ -48,30 +49,30 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-12">
             <div className="flex items-center space-x-4 sm:space-x-8 overflow-x-auto flex-1">
-              <a href="" className="flex items-center space-x-1 hover:text-green-200 transition-colors whitespace-nowrap">
+              <Link href="" className="flex items-center space-x-1 hover:text-green-200 transition-colors whitespace-nowrap">
                 <Bug className="h-4 w-4" />
                 <span className="text-sm font-medium">Live Insects</span>
-              </a>
-              <a href="" className="flex items-center space-x-1 hover:text-green-200 transition-colors whitespace-nowrap">
+              </Link>
+              <Link href="" className="flex items-center space-x-1 hover:text-green-200 transition-colors whitespace-nowrap">
                 <Home className="h-4 w-4" />
                 <span className="text-sm font-medium">Enclosures</span>
-              </a>
-              <a href="" className="flex items-center space-x-1 hover:text-green-200 transition-colors whitespace-nowrap">
+              </Link  >
+              <Link href="" className="flex items-center space-x-1 hover:text-green-200 transition-colors whitespace-nowrap">
                 <Leaf className="h-4 w-4" />
                 <span className="text-sm font-medium">Substrate &amp; Décor</span>
-              </a>
-              <a href="" className="flex items-center space-x-1 hover:text-green-200 transition-colors whitespace-nowrap">
+              </Link >
+              <Link href="" className="flex items-center space-x-1 hover:text-green-200 transition-colors whitespace-nowrap">
                 <Droplets className="h-4 w-4" />
                 <span className="text-sm font-medium">Food &amp; Nutrition</span>
-              </a>
-              <a href="" className="flex items-center space-x-1 hover:text-green-200 transition-colors whitespace-nowrap">
+              </Link >
+              <Link href="" className="flex items-center space-x-1 hover:text-green-200 transition-colors whitespace-nowrap">
                 <Thermometer className="h-4 w-4" />
                 <span className="text-sm font-medium">Climate Control</span>
-              </a>
-              <a href="" className="flex items-center space-x-1 hover:text-green-200 transition-colors whitespace-nowrap">
+              </Link >
+              <Link href="" className="flex items-center space-x-1 hover:text-green-200 transition-colors whitespace-nowrap">
                 <Package className="h-4 w-4" />
                 <span className="text-sm font-medium">Supplies</span>
-              </a>
+              </Link >
             </div>
             <button className="items-center justify-center text-sm font-medium transition-all shrink-0 outline-none h-8 rounded-md gap-1 5 px-3 text-green-200 hover:text-white hover:bg-green-600 ml-4 whitespace-nowrap hidden sm:flex cursor-pointer">
               Become a Seller
@@ -468,14 +469,14 @@ Live and frozen food options
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <a className="flex items-center space-x-2 mb-4" href="/">
+              <Link className="flex items-center space-x-2 mb-4" href="/">
                 <div className="bg-green-600 p-2 rounded-lg">
                   <span className="text-white font-semibold">
                     <Bug className="h-6 w-6 text-white" />
                   </span>
                 </div>
                 <span className="text-xl sm:text-2xl font-bold">{SiteName}</span>
-              </a>
+              </Link >
               <p className="text-gray-400">
                 Connecting arthropod enthusiasts with trusted breeders and suppliers worldwide.
               </p>
@@ -484,16 +485,16 @@ Live and frozen food options
               <h3 className="font-semibold text-lg mb-4">Shop</h3>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <a href="" className="hover:text-white transition-colors">Live Insects</a>
+                  <Link href="" className="hover:text-white transition-colors">Live Insects</Link >
                 </li>
                 <li>
-                  <a href="" className="hover:text-white transition-colors">Enclosures</a>
+                  <Link href="" className="hover:text-white transition-colors">Enclosures</Link >
                 </li>
                 <li>
-                  <a href="" className="hover:text-white transition-colors">Supplies</a>
+                  <Link href="" className="hover:text-white transition-colors">Supplies</Link >
                 </li>
                 <li>
-                  <a href="" className="hover:text-white transition-colors">Food</a>
+                  <Link href="" className="hover:text-white transition-colors">Food</Link >
                 </li>
               </ul>
             </div>
@@ -501,16 +502,16 @@ Live and frozen food options
               <h3 className="font-semibold text-lg mb-4">Support</h3>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <a href="" className="hover:text-white transition-colors">Help Center</a>
+                  <Link href="" className="hover:text-white transition-colors">Help Center</Link >
                 </li>
                 <li>
-                  <a href="" className="hover:text-white transition-colors">Shipping Info</a>
+                  <Link href="" className="hover:text-white transition-colors">Shipping Info</Link >
                 </li>
                 <li>
-                  <a href="" className="hover:text-white transition-colors">Returns</a>
+                  <Link href="" className="hover:text-white transition-colors">Returns</Link >
                 </li>
                 <li>
-                  <a href="" className="hover:text-white transition-colors">Contact Us</a>
+                  <Link href="" className="hover:text-white transition-colors">Contact Us</Link >
                 </li>
               </ul>
             </div>
@@ -518,16 +519,16 @@ Live and frozen food options
               <h3 className="font-semibold text-lg mb-4">Community</h3>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <a href="" className="hover:text-white transition-colors">Forums</a>
+                  <Link href="" className="hover:text-white transition-colors">Forums</Link >
                 </li>
                 <li>
-                  <a href="" className="hover:text-white transition-colors">Care Guides</a>
+                  <Link href="" className="hover:text-white transition-colors">Care Guides</Link >
                 </li>
                 <li>
-                  <a href="" className="hover:text-white transition-colors">Seller Program</a>
+                  <Link href="" className="hover:text-white transition-colors">Seller Program</Link >
                 </li>
                 <li>
-                  <a href="" className="hover:text-white transition-colors">Blog</a>
+                  <Link href="" className="hover:text-white transition-colors">Blog</Link >
                 </li>
               </ul>
             </div>
@@ -538,9 +539,9 @@ Live and frozen food options
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400">&copy; {new Date().getFullYear()} {SiteName}. All rights reserved.</p>
             <div className="flex space-x-6 mt-4 md:mt-0">
-              <a href="" className="text-gray-400 hover:text-white transition-colors">Privacy</a>
-              <a href="" className="text-gray-400 hover:text-white transition-colors">Terms</a>
-              <a href="" className="text-gray-400 hover:text-white transition-colors">Cookies</a>
+              <Link href="" className="text-gray-400 hover:text-white transition-colors">Privacy</Link >
+              <Link href="" className="text-gray-400 hover:text-white transition-colors">Terms</Link >
+              <Link href="" className="text-gray-400 hover:text-white transition-colors">Cookies</Link >
             </div>
           </div>
         </div>
