@@ -45,6 +45,6 @@ export const actions: Actions = {
         });
 
         // Redirect to the new shop page
-        return redirect(303, '/shops/' + slug);
+        return redirect(303, '/shop/' + slug);
     }
 };

@@ -14,7 +14,7 @@ export const load: PageServerLoad = async (event) => {
         .then(results => results[0]);
 
     if (!shop || !shop.shops) {
-        return { shop: null, listings: null, error: 'Shop not found' };
+        return { shop: null, listings: null, error: 'Shop not found', isOwner: false };
     }
 
     const thisShopsListings = await db.select()
@@ -22,5 +22,8 @@ export const load: PageServerLoad = async (event) => {
         .where(eq(table.listings.shopId, shop.shops?.id))
         .then(results => results);
 
-    return { shop, thisShopsListings, error: null };
+    // Check if the current user owns this shop
+    const isOwner = event.locals.user?.id === shop.shops.ownerId;
+
+    return { shop, thisShopsListings, error: null, isOwner };
 }

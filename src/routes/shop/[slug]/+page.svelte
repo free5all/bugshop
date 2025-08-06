@@ -4,7 +4,17 @@
 
 {#if data.shop}
     <section class="max-w-3xl mx-auto mt-10 bg-white rounded-lg shadow p-8">
-        <h1 class="text-3xl font-bold mb-4 text-gray-800">{data.shop.shops?.name ?? 'Shop'}</h1>
+        <div class="flex justify-between items-start mb-4">
+            <h1 class="text-3xl font-bold text-gray-800">{data.shop.shops?.name ?? 'Shop'}</h1>
+            {#if data.isOwner}
+                <a
+                    href="/shop/{data.shop.shops?.slug}/listing/new"
+                    class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
+                >
+                    Create New Listing
+                </a>
+            {/if}
+        </div>
         {#if data.shop.shops?.description}
             <p class="mb-6 text-gray-600">{data.shop.shops.description}</p>
         {/if}
