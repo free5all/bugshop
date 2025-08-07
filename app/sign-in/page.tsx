@@ -102,7 +102,7 @@ export default async function SignInPage() {
                         </div>
                         <div className="mt-12 p-6 bg-green-700/50 rounded-lg">
                             <p className="text-green-100 text-center italic">
-                                "ArthropodShop has connected me with amazing breeders and helped me build the perfect habitat for my collection."
+                                &quot;ArthropodShop has connected me with amazing breeders and helped me build the perfect habitat for my collection.&quot;
                             </p>
                             <p className="text-green-200 text-center mt-2 font-semibold">
                                 - Sarah K., Verified Buyer
