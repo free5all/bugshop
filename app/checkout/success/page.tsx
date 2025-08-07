@@ -63,10 +63,10 @@ export default function CheckoutSuccess() {
                         <div className="flex items-start">
                             <Package className="h-5 w-5 text-green-600 mt-0.5 mr-3" />
                             <div className="text-left">
-                                <h3 className="text-sm font-medium text-green-800">What's Next?</h3>
+                                <h3 className="text-sm font-medium text-green-800">What&apos;s Next?</h3>
                                 <ul className="text-sm text-green-700 mt-1 space-y-1">
                                     <li>• The seller will receive notification of your order</li>
-                                    <li>• You'll receive an email confirmation shortly</li>
+                                    <li>• You&apos;ll receive an email confirmation shortly</li>
                                     <li>• Tracking information will be provided when your order ships</li>
                                 </ul>
                             </div>

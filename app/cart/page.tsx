@@ -5,9 +5,8 @@ import { useRouter } from "next/navigation";
 import Header from "@/lib/components/Header";
 import UserButton from "@/lib/components/UserButton";
 import SignInButton from "@/lib/components/SignInButton";
-import { ShoppingCart, Trash2, Plus, Minus, ArrowLeft } from "lucide-react";
+import { ShoppingCart, Trash2, ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import { auth } from "@/auth";
 
 interface CartItem {
     cartItem: {
@@ -45,7 +44,7 @@ export default function CartPage() {
             } else {
                 setError("Failed to load cart");
             }
-        } catch (err) {
+        } catch {
             setError("Network error");
         } finally {
             setIsLoading(false);
@@ -107,18 +106,18 @@ export default function CartPage() {
                 </div>
             </Header>
 
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <Link
                     href="/"
-                    className="inline-flex items-center text-green-600 hover:text-green-800 mb-6"
+                    className="inline-flex items-center text-green-600 hover:text-green-800 mb-8"
                 >
                     <ArrowLeft className="h-4 w-4 mr-2" />
                     Continue Shopping
                 </Link>
 
-                <div className="flex items-center mb-6">
-                    <ShoppingCart className="h-6 w-6 text-green-600 mr-3" />
-                    <h1 className="text-2xl font-bold text-gray-900">Shopping Cart</h1>
+                <div className="flex items-center mb-8">
+                    <ShoppingCart className="h-8 w-8 text-green-600 mr-4" />
+                    <h1 className="text-3xl lg:text-4xl font-bold text-gray-900">Shopping Cart</h1>
                 </div>
 
                 {error && (
@@ -128,13 +127,13 @@ export default function CartPage() {
                 )}
 
                 {cartItems.length === 0 ? (
-                    <div className="bg-white rounded-lg shadow-sm border border-green-100 p-8 text-center">
-                        <ShoppingCart className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                        <h2 className="text-xl font-semibold text-gray-600 mb-2">Your cart is empty</h2>
-                        <p className="text-gray-500 mb-6">Add some items to get started!</p>
+                    <div className="bg-white rounded-xl shadow-sm border border-green-100 p-12 text-center">
+                        <ShoppingCart className="h-16 w-16 text-gray-400 mx-auto mb-6" />
+                        <h2 className="text-2xl font-semibold text-gray-600 mb-4">Your cart is empty</h2>
+                        <p className="text-gray-500 mb-8 text-lg">Add some items to get started!</p>
                         <Link
                             href="/"
-                            className="inline-block px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
+                            className="inline-block px-8 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
                         >
                             Start Shopping
                         </Link>

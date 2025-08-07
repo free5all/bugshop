@@ -10,19 +10,20 @@ import Link from "next/link";
 import AddToCartButton from "@/lib/components/AddToCartButton";
 
 interface StorefrontPageProps {
-    params: {
+    params: Promise<{
         id: string;
-    };
+    }>;
 }
 
 export default async function StorefrontPage({ params }: StorefrontPageProps) {
     const session = await auth();
+    const { id } = await params;
     
     // Get storefront details
     const [storefront] = await db
         .select()
         .from(storefronts)
-        .where(eq(storefronts.id, params.id))
+        .where(eq(storefronts.id, id))
         .limit(1);
 
     if (!storefront) {
@@ -52,7 +53,7 @@ export default async function StorefrontPage({ params }: StorefrontPageProps) {
     const storefrontProducts = await db
         .select()
         .from(products)
-        .where(eq(products.storefrontId, params.id));
+        .where(eq(products.storefrontId, id));
 
     // Check if current user can manage this storefront
     let canManage = false;
@@ -63,7 +64,7 @@ export default async function StorefrontPage({ params }: StorefrontPageProps) {
             .where(
                 and(
                     eq(userStorefronts.userId, session.user.id),
-                    eq(userStorefronts.storefrontId, params.id)
+                    eq(userStorefronts.storefrontId, id)
                 )
             )
             .limit(1);
@@ -112,7 +113,7 @@ export default async function StorefrontPage({ params }: StorefrontPageProps) {
                         </div>
                         {canManage && (
                             <Link
-                                href={`/storefronts/${params.id}/manage`}
+                                href={`/storefronts/${id}/manage`}
                                 className="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
                             >
                                 <Settings className="h-4 w-4 mr-2" />
@@ -130,7 +131,7 @@ export default async function StorefrontPage({ params }: StorefrontPageProps) {
                         <div className="bg-white rounded-lg shadow-sm border border-green-100 p-8 text-center">
                             <Package className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                             <h3 className="text-lg font-semibold text-gray-600 mb-2">No products yet</h3>
-                            <p className="text-gray-500">This storefront hasn't listed any products yet.</p>
+                            <p className="text-gray-500">This storefront hasn&apos;t listed any products yet.</p>
                         </div>
                     ) : (
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

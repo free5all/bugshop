@@ -4,7 +4,6 @@ import { storefronts, userStorefronts } from "@/lib/server/db/schema";
 import { eq } from "drizzle-orm";
 import Header from "@/lib/components/Header";
 import UserButton from "@/lib/components/UserButton";
-import SignInButton from "@/lib/components/SignInButton";
 import { Store, Plus, ShoppingCart, ArrowLeft, Settings } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -40,25 +39,25 @@ export default async function Dashboard() {
                 </div>
             </Header>
 
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <Link
                     href="/"
-                    className="inline-flex items-center text-green-600 hover:text-green-800 mb-6"
+                    className="inline-flex items-center text-green-600 hover:text-green-800 mb-8"
                 >
                     <ArrowLeft className="h-4 w-4 mr-2" />
                     Back to Home
                 </Link>
 
-                <div className="flex items-center justify-between mb-8">
-                    <div>
-                        <h1 className="text-3xl font-bold text-gray-900">Your Dashboard</h1>
-                        <p className="text-gray-600">Manage your storefronts and view orders</p>
+                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-10">
+                    <div className="mb-4 lg:mb-0">
+                        <h1 className="text-3xl lg:text-4xl font-bold text-gray-900">Your Dashboard</h1>
+                        <p className="text-gray-600 text-lg mt-2">Manage your storefronts and view orders</p>
                     </div>
                     <Link
                         href="/storefronts/create"
-                        className="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
+                        className="inline-flex items-center px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
                     >
-                        <Plus className="h-4 w-4 mr-2" />
+                        <Plus className="h-5 w-5 mr-2" />
                         Create Storefront
                     </Link>
                 </div>

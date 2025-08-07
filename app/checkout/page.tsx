@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import Header from "@/lib/components/Header";
 import UserButton from "@/lib/components/UserButton";
 import SignInButton from "@/lib/components/SignInButton";
@@ -26,7 +25,6 @@ interface CartItem {
 }
 
 export default function CheckoutPage() {
-    const router = useRouter();
     const [cartItems, setCartItems] = useState<CartItem[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isProcessing, setIsProcessing] = useState(false);
@@ -45,7 +43,7 @@ export default function CheckoutPage() {
             } else {
                 setError("Failed to load cart");
             }
-        } catch (err) {
+        } catch {
             setError("Network error");
         } finally {
             setIsLoading(false);
@@ -89,7 +87,7 @@ export default function CheckoutPage() {
                 const errorData = await response.json();
                 setError(errorData.error || "Failed to create checkout session");
             }
-        } catch (err) {
+        } catch {
             setError("Network error. Please try again.");
         } finally {
             setIsProcessing(false);
@@ -123,18 +121,18 @@ export default function CheckoutPage() {
                 </div>
             </Header>
 
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <Link
                     href="/cart"
-                    className="inline-flex items-center text-green-600 hover:text-green-800 mb-6"
+                    className="inline-flex items-center text-green-600 hover:text-green-800 mb-8"
                 >
                     <ArrowLeft className="h-4 w-4 mr-2" />
                     Back to Cart
                 </Link>
 
-                <div className="flex items-center mb-6">
-                    <CreditCard className="h-6 w-6 text-green-600 mr-3" />
-                    <h1 className="text-2xl font-bold text-gray-900">Checkout</h1>
+                <div className="flex items-center mb-8">
+                    <CreditCard className="h-8 w-8 text-green-600 mr-4" />
+                    <h1 className="text-3xl lg:text-4xl font-bold text-gray-900">Checkout</h1>
                 </div>
 
                 {error && (
@@ -160,7 +158,7 @@ export default function CheckoutPage() {
                         <div className="bg-blue-50 border border-blue-200 rounded-md p-4">
                             <h3 className="text-sm font-medium text-blue-800 mb-2">Checkout Process</h3>
                             <p className="text-sm text-blue-700">
-                                Currently, each storefront requires a separate checkout. You'll need to complete checkout for each seller individually.
+                                Currently, each storefront requires a separate checkout. You&apos;ll need to complete checkout for each seller individually.
                             </p>
                         </div>
 

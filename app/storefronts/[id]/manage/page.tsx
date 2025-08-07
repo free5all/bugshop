@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useState, useEffect, useCallback } from "react";
+import { useParams } from "next/navigation";
 import Header from "@/lib/components/Header";
 import UserButton from "@/lib/components/UserButton";
 import SignInButton from "@/lib/components/SignInButton";
@@ -27,7 +27,6 @@ interface Storefront {
 
 export default function ManageStorefront() {
     const params = useParams();
-    const router = useRouter();
     const storefrontId = params.id as string;
 
     const [storefront, setStorefront] = useState<Storefront | null>(null);
@@ -44,17 +43,12 @@ export default function ManageStorefront() {
         quantity: 1,
     });
 
-    useEffect(() => {
-        fetchStorefront();
-        fetchProducts();
-    }, [storefrontId]);
-
-    const fetchStorefront = async () => {
+    const fetchStorefront = useCallback(async () => {
         try {
             const response = await fetch("/api/storefronts");
             if (response.ok) {
                 const { storefronts } = await response.json();
-                const currentStorefront = storefronts.find((s: any) => s.storefront.id === storefrontId);
+                const currentStorefront = storefronts.find((s: { storefront: { id: string } }) => s.storefront.id === storefrontId);
                 if (currentStorefront) {
                     setStorefront(currentStorefront.storefront);
                 }
@@ -62,9 +56,9 @@ export default function ManageStorefront() {
         } catch (err) {
             console.error("Error fetching storefront:", err);
         }
-    };
+    }, [storefrontId]);
 
-    const fetchProducts = async () => {
+    const fetchProducts = useCallback(async () => {
         try {
             const response = await fetch(`/api/products?storefrontId=${storefrontId}`);
             if (response.ok) {
@@ -76,7 +70,12 @@ export default function ManageStorefront() {
         } finally {
             setIsLoading(false);
         }
-    };
+    }, [storefrontId]);
+
+    useEffect(() => {
+        fetchStorefront();
+        fetchProducts();
+    }, [fetchStorefront, fetchProducts]);
 
     const handleAddProduct = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -102,7 +101,7 @@ export default function ManageStorefront() {
                 const errorData = await response.json();
                 setError(errorData.error || "Failed to add product");
             }
-        } catch (err) {
+        } catch {
             setError("Network error. Please try again.");
         }
     };
@@ -153,17 +152,17 @@ export default function ManageStorefront() {
                 </div>
             </Header>
 
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <Link
                     href={`/storefronts/${storefrontId}`}
-                    className="inline-flex items-center text-green-600 hover:text-green-800 mb-6"
+                    className="inline-flex items-center text-green-600 hover:text-green-800 mb-8"
                 >
                     <ArrowLeft className="h-4 w-4 mr-2" />
                     Back to Storefront
                 </Link>
 
                 {/* Storefront Header */}
-                <div className="bg-white rounded-lg shadow-sm border border-green-100 p-6 mb-8">
+                <div className="bg-white rounded-xl shadow-sm border border-green-100 p-8 mb-10">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-4">
                             <div className="bg-green-100 rounded-full p-3">

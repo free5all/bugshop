@@ -1,4 +1,4 @@
-import { integer, pgTable, primaryKey, text, timestamp, uuid, decimal, varchar } from "drizzle-orm/pg-core";
+import { integer, pgTable, primaryKey, text, timestamp, decimal, varchar } from "drizzle-orm/pg-core";
 import type { AdapterAccountType } from "next-auth/adapters";
 import { relations } from "drizzle-orm";
 

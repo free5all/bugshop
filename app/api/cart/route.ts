@@ -4,7 +4,7 @@ import { db } from "@/lib/server/db";
 import { cartItems, products, storefronts } from "@/lib/server/db/schema";
 import { eq, and } from "drizzle-orm";
 
-export async function GET(request: NextRequest) {
+export async function GET() {
     try {
         const session = await auth();
         

@@ -1,5 +1,5 @@
 import SignInButton from "@/lib/components/SignInButton";
-import { Bug, User, Heart, ShoppingCart, Search, Home, Leaf, Droplets, Thermometer, Package, ChevronRight, Shield, Truck, Users, Award, BadgeCheck, Star, MapPin, Clock } from "lucide-react";
+import { Bug, Heart, Search, Home, Leaf, Droplets, Thermometer, Package, ChevronRight, Shield, Truck, Users, Award, BadgeCheck, Star, MapPin, Clock } from "lucide-react";
 import Link from "next/link";
 import UserButton from "@/lib/components/UserButton";
 import Header from "@/lib/components/Header";

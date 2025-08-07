@@ -5,6 +5,7 @@ import Link from "next/link";
 import { User, ShoppingBag, Settings, LogOut, Store } from "lucide-react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { signOut } from "next-auth/react";
+import Image from "next/image";
 
 type UserButtonProps = {
   user: {
@@ -23,7 +24,7 @@ export default function UserButton({ user }: UserButtonProps) {
                     aria-haspopup="true"
                     aria-label="Open user menu"
                 >
-                    <img
+                    <Image
                         src={user?.image || ""}
                         alt={user?.name || ""}
                         width={40}
@@ -58,7 +59,7 @@ export default function UserButton({ user }: UserButtonProps) {
                             </Link>
                         </DropdownMenu.Item>
                         <DropdownMenu.Item asChild>
-                            <Link href="/my-orders" className="px-2 mx-1 py-1.5 text-sm hover:bg-gray-100 text-black rounded-md flex items-center">
+                            <Link href="/orders" className="px-2 mx-1 py-1.5 text-sm hover:bg-gray-100 text-black rounded-md flex items-center">
                                 <ShoppingBag className="inline h-4 w-4 mr-3 text-gray-500" />
                                 My Orders
                             </Link>

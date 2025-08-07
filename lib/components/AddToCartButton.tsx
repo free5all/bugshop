@@ -9,7 +9,7 @@ interface AddToCartButtonProps {
     disabled?: boolean;
 }
 
-export default function AddToCartButton({ productId, productName, disabled }: AddToCartButtonProps) {
+export default function AddToCartButton({ productId, disabled }: AddToCartButtonProps) {
     const [isLoading, setIsLoading] = useState(false);
     const [success, setSuccess] = useState(false);
 

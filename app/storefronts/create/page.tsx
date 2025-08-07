@@ -36,7 +36,7 @@ export default function CreateStorefront() {
                 const errorData = await response.json();
                 setError(errorData.error || "Failed to create storefront");
             }
-        } catch (err) {
+        } catch {
             setError("Network error. Please try again.");
         } finally {
             setIsLoading(false);

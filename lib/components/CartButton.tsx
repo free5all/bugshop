@@ -17,7 +17,7 @@ export default function CartButton() {
             const response = await fetch("/api/cart");
             if (response.ok) {
                 const { cartItems } = await response.json();
-                const totalCount = cartItems.reduce((total: number, item: any) => 
+                const totalCount = cartItems.reduce((total: number, item: { cartItem: { quantity: number } }) => 
                     total + item.cartItem.quantity, 0
                 );
                 setCartCount(totalCount);
