@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/server/db";
-import { orders, cartItems } from "@/lib/server/db/schema";
+import { orders, cartItems, products } from "@/lib/server/db/schema";
 import { eq, and } from "drizzle-orm";
 import Stripe from "stripe";
 
@@ -49,6 +49,25 @@ export async function POST(request: NextRequest) {
                                     eq(cartItems.storefrontId, session.metadata.storefrontId)
                                 )
                             );
+                    }
+
+                    // Decrement stock for each product in the order
+                    const orderItems = session.metadata.orderItems ? JSON.parse(session.metadata.orderItems) : [];
+                    for (const item of orderItems) {
+                        const currentQty = await db
+                            .select()
+                            .from(products)
+                            .where(eq(products.id, item.productId))
+                            .then(res => res[0]?.quantity || 0);
+
+                        if (currentQty >= item.quantity) {
+                            await db
+                                .update(products)
+                                .set({ quantity: currentQty - item.quantity, updatedAt: new Date() })
+                                .where(eq(products.id, item.productId));
+                        } else {
+                            console.warn(`Insufficient stock for product ${item.productId}. Current: ${currentQty}, Requested: ${item.quantity}`);
+                        }
                     }
 
                     console.log('Order updated successfully:', session.metadata.orderId);

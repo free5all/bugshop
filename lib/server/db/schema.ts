@@ -1,4 +1,4 @@
-import { integer, pgTable, primaryKey, text, timestamp, uuid, decimal, varchar, sql } from "drizzle-orm/pg-core";
+import { integer, pgTable, primaryKey, text, timestamp, uuid, decimal, varchar } from "drizzle-orm/pg-core";
 import type { AdapterAccountType } from "next-auth/adapters";
 import { relations } from "drizzle-orm";
 
@@ -84,8 +84,8 @@ export const storefronts = pgTable("storefront", {
         .notNull()
         .references(() => users.id, { onDelete: "cascade" }),
     stripeAccountId: text("stripe_account_id"),
-    createdAt: timestamp("created_at", { mode: "date" }).notNull().default(sql`NOW()`),
-    updatedAt: timestamp("updated_at", { mode: "date" }).notNull().default(sql`NOW()`),
+    createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow(),
 });
 
 // Many-to-many relationship between users and storefronts

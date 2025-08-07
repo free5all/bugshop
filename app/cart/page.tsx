@@ -7,6 +7,7 @@ import UserButton from "@/lib/components/UserButton";
 import SignInButton from "@/lib/components/SignInButton";
 import { ShoppingCart, Trash2, Plus, Minus, ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { auth } from "@/auth";
 
 interface CartItem {
     cartItem: {

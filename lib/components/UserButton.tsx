@@ -11,7 +11,7 @@ type UserButtonProps = {
     name?: string | null;
     image?: string | null;
     email?: string | null;
-  };
+  } | null;
 };
 
 export default function UserButton({ user }: UserButtonProps) {
@@ -24,8 +24,8 @@ export default function UserButton({ user }: UserButtonProps) {
                     aria-label="Open user menu"
                 >
                     <img
-                        src={user.image || ""}
-                        alt={user.name || ""}
+                        src={user?.image || ""}
+                        alt={user?.name || ""}
                         width={40}
                         height={40}
                         className="rounded-full"
@@ -41,8 +41,8 @@ export default function UserButton({ user }: UserButtonProps) {
                 >
                     <div className="py-1">
                         <div className="mx-2.5 my-1 mb-2">
-                            <h3 className="text-sm font-semibold">{user.name}</h3>
-                            <p className="text-xs text-gray-500 -mt-0.5">{user.email}</p>
+                            <h3 className="text-sm font-semibold">{user?.name}</h3>
+                            <p className="text-xs text-gray-500 -mt-0.5">{user?.email}</p>
                         </div>
                         <hr className="my-1 border-gray-200" />
                         <DropdownMenu.Item asChild>
