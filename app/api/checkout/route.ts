@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { db } from "@/lib/server/db";
 import { cartItems, products, storefronts, orders, orderItems } from "@/lib/server/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -34,8 +34,12 @@ export async function POST(request: NextRequest) {
             .from(cartItems)
             .innerJoin(products, eq(cartItems.productId, products.id))
             .innerJoin(storefronts, eq(cartItems.storefrontId, storefronts.id))
-            .where(eq(cartItems.userId, session.user.id))
-            .where(eq(cartItems.storefrontId, storefrontId));
+            .where(
+                and(
+                    eq(cartItems.userId, session.user.id),
+                    eq(cartItems.storefrontId, storefrontId)
+                )
+            );
 
         if (userCartItems.length === 0) {
             return NextResponse.json({ error: "No items in cart for this storefront" }, { status: 400 });

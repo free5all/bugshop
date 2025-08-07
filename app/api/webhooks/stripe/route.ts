@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/server/db";
 import { orders, cartItems } from "@/lib/server/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -44,8 +44,10 @@ export async function POST(request: NextRequest) {
                         await db
                             .delete(cartItems)
                             .where(
-                                eq(cartItems.userId, session.metadata.userId) &&
-                                eq(cartItems.storefrontId, session.metadata.storefrontId)
+                                and(
+                                    eq(cartItems.userId, session.metadata.userId),
+                                    eq(cartItems.storefrontId, session.metadata.storefrontId)
+                                )
                             );
                     }
 

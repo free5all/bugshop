@@ -2,7 +2,7 @@
 
 
 import Link from "next/link";
-import { User, ShoppingBag, Settings, LogOut } from "lucide-react";
+import { User, ShoppingBag, Settings, LogOut, Store } from "lucide-react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { signOut } from "next-auth/react";
 
@@ -45,6 +45,12 @@ export default function UserButton({ user }: UserButtonProps) {
                             <p className="text-xs text-gray-500 -mt-0.5">{user.email}</p>
                         </div>
                         <hr className="my-1 border-gray-200" />
+                        <DropdownMenu.Item asChild>
+                            <Link href="/dashboard" className="px-2 mx-1 py-1.5 text-sm hover:bg-gray-100 text-black rounded-md flex items-center">
+                                <Store className="inline h-4 w-4 mr-3 text-gray-500" />
+                                Dashboard
+                            </Link>
+                        </DropdownMenu.Item>
                         <DropdownMenu.Item asChild>
                             <Link href="/profile" className="px-2 mx-1 py-1.5 text-sm hover:bg-gray-100 text-black rounded-md flex items-center">
                                 <User className="inline h-4 w-4 mr-3 text-gray-500" />

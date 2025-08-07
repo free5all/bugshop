@@ -1,12 +1,13 @@
 import { auth } from "@/auth";
 import { db } from "@/lib/server/db";
-import { storefronts, products } from "@/lib/server/db/schema";
-import { eq } from "drizzle-orm";
+import { storefronts, products, userStorefronts } from "@/lib/server/db/schema";
+import { eq, and } from "drizzle-orm";
 import Header from "@/lib/components/Header";
 import UserButton from "@/lib/components/UserButton";
 import SignInButton from "@/lib/components/SignInButton";
-import { Store, ShoppingCart, ArrowLeft, Package } from "lucide-react";
+import { Store, ShoppingCart, ArrowLeft, Package, Settings } from "lucide-react";
 import Link from "next/link";
+import AddToCartButton from "@/lib/components/AddToCartButton";
 
 interface StorefrontPageProps {
     params: {
@@ -53,6 +54,23 @@ export default async function StorefrontPage({ params }: StorefrontPageProps) {
         .from(products)
         .where(eq(products.storefrontId, params.id));
 
+    // Check if current user can manage this storefront
+    let canManage = false;
+    if (session?.user?.id) {
+        const [userStorefront] = await db
+            .select()
+            .from(userStorefronts)
+            .where(
+                and(
+                    eq(userStorefronts.userId, session.user.id),
+                    eq(userStorefronts.storefrontId, params.id)
+                )
+            )
+            .limit(1);
+        
+        canManage = !!userStorefront && (userStorefront.role === 'owner' || userStorefront.role === 'manager');
+    }
+
     return (
         <div className="min-h-screen bg-green-50">
             <Header>
@@ -92,6 +110,15 @@ export default async function StorefrontPage({ params }: StorefrontPageProps) {
                                 <span>Member since {new Date(storefront.createdAt).toLocaleDateString()}</span>
                             </div>
                         </div>
+                        {canManage && (
+                            <Link
+                                href={`/storefronts/${params.id}/manage`}
+                                className="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
+                            >
+                                <Settings className="h-4 w-4 mr-2" />
+                                Manage Storefront
+                            </Link>
+                        )}
                     </div>
                 </div>
 
@@ -117,15 +144,11 @@ export default async function StorefrontPage({ params }: StorefrontPageProps) {
                                         )}
                                         <div className="flex items-center justify-between">
                                             <span className="text-lg font-bold text-green-600">${product.price}</span>
-                                            <button 
-                                                className="px-3 py-1 bg-green-600 text-white text-sm rounded-md hover:bg-green-700 transition-colors"
-                                                onClick={() => {
-                                                    // Add to cart functionality would go here
-                                                    console.log('Add to cart:', product.id);
-                                                }}
-                                            >
-                                                Add to Cart
-                                            </button>
+                                            <AddToCartButton 
+                                                productId={product.id}
+                                                productName={product.name}
+                                                disabled={product.quantity === 0}
+                                            />
                                         </div>
                                         {product.quantity <= 5 && (
                                             <p className="text-xs text-orange-600 mt-2">
