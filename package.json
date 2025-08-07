@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:migrate": "drizzle-kit migrate"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.10.0",
