@@ -1,9 +1,15 @@
+import SignInButton from "@/lib/components/SignInButton";
 import { Bug, User, Heart, ShoppingCart, Search, Home, Leaf, Droplets, Thermometer, Package, ChevronRight, Shield, Truck, Users, Award, BadgeCheck, Star, MapPin, Clock } from "lucide-react";
+import { getServerSession } from "next-auth";
 import Link from "next/link";
+import { authOptions } from "./api/auth/[...nextauth]/route";
+import SignOutButton from "@/lib/components/SignOutButton";
 
 const SiteName = "ArthropodShop"
 
-export default function HomePage() {
+export default async function HomePage() {
+  const session = await getServerSession(authOptions);
+
   return (
     <div className="min-h-screen bg-green-50 font-sans">
       <header className="bg-white shadow-sm border-b border-green-100">
@@ -27,10 +33,11 @@ export default function HomePage() {
               </div>
             </div>
             <div className="flex items-center space-x-2 sm:space-x-4">
-              <button className="items-center justify-center whitespace-nowrap text-sm font-medium transition-all h-8 rounded-md gap-1.5 px-3 text-green-700 hidden sm:flex hover:text-green-800 hover:bg-accent cursor-pointer">
-                <User className="h-4 w-4 mr-1" />
-                <span className="hidden lg:inline">Sign In</span>
-              </button>
+              {session ? (
+                <SignOutButton />
+              ) : (
+                <SignInButton />
+              )}
               <button className="items-center justify-center whitespace-nowrap text-sm font-medium transition-all h-8 rounded-md gap-1.5 px-3 text-green-700 hidden sm:flex hover:text-green-800 hover:bg-accent cursor-pointer">
                 <Heart className="h-4 w-4 mr-1" />
                 <span className="hidden lg:inline">Wishlist</span>
