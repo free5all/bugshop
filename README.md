@@ -1,36 +1,224 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BugShop - Arthropod Marketplace
+
+A modern e-commerce platform for arthropod enthusiasts, breeders, and suppliers built with Next.js, TypeScript, and Stripe.
+
+## Features Implemented
+
+### ✅ User Authentication
+- NextAuth.js integration with support for multiple providers
+- Secure session management
+- User profiles and dashboard
+
+### ✅ Storefront Management
+- Multi-vendor marketplace architecture
+- Each user can own/manage multiple storefronts
+- Role-based permissions (owner, manager, employee)
+- Storefront creation flow with name and description
+
+### ✅ Product Management
+- Add products to storefronts
+- Product details: name, description, price, quantity, status
+- Inventory tracking
+- Product listing on storefront pages
+
+### ✅ Shopping Cart
+- Database-persisted shopping cart
+- Add/remove items functionality
+- Cart organized by storefront (separate checkouts)
+- Real-time cart count display
+- Session-based cart management
+
+### ✅ Stripe Integration
+- Secure checkout flow with Stripe Checkout
+- Payment processing
+- Order creation and tracking
+- Webhook handling for payment confirmation
+- Cart cleanup after successful payment
+
+### ✅ Order Management
+- Order creation on checkout initiation
+- Order status tracking (pending, paid, shipped, completed)
+- Order items with price history
+- Integration with Stripe payment intents
+
+### ✅ Database Schema
+Comprehensive schema with proper relationships:
+- Users and authentication tables
+- Storefronts with multi-user support
+- Products with inventory management
+- Shopping cart persistence
+- Orders and order items
+- Proper foreign key relationships and constraints
+
+## Tech Stack
+
+- **Frontend**: Next.js 15, React 19, TypeScript
+- **Styling**: Tailwind CSS
+- **Database**: PostgreSQL with Drizzle ORM
+- **Authentication**: NextAuth.js
+- **Payments**: Stripe
+- **UI Components**: Radix UI, Lucide React icons
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+- Node.js 18+ and npm/pnpm
+- PostgreSQL database
+- Stripe account
 
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd bugshop
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+# or
+pnpm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Set up environment variables:
+```bash
+cp .env.example .env
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Fill in your environment variables:
+```env
+# Auth
+NEXTAUTH_SECRET=your-secret-here
+NEXTAUTH_URL=http://localhost:3000
 
-## Learn More
+# Database
+DATABASE_URL=your-postgresql-url
 
-To learn more about Next.js, take a look at the following resources:
+# Stripe
+STRIPE_PUBLISHABLE_KEY=pk_test_...
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_WEBHOOK_SECRET=whsec_...
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# OAuth providers (optional)
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. Run database migrations:
+```bash
+npm run db:migrate
+```
 
-## Deploy on Vercel
+5. Start the development server:
+```bash
+npm run dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Visit [http://localhost:3000](http://localhost:3000) to see the application.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Key Features Overview
+
+### Multi-Vendor Architecture
+- Users can create multiple storefronts
+- Each storefront operates independently
+- Role-based access control for storefront management
+
+### Shopping Experience
+- Browse products by storefront
+- Add items to cart with real-time updates
+- Separate checkout per storefront
+- Secure payment processing via Stripe
+
+### Seller Dashboard
+- Create and manage storefronts
+- Add and edit products
+- View role in each storefront
+- Access management tools based on permissions
+
+## API Endpoints
+
+### Storefronts
+- `POST /api/storefronts` - Create new storefront
+- `GET /api/storefronts` - Get user's storefronts
+
+### Products
+- `POST /api/products` - Add product to storefront
+- `GET /api/products?storefrontId=<id>` - Get products for storefront
+
+### Shopping Cart
+- `GET /api/cart` - Get user's cart items
+- `POST /api/cart` - Add item to cart
+- `DELETE /api/cart?id=<itemId>` - Remove item from cart
+
+### Checkout
+- `POST /api/checkout` - Create Stripe checkout session
+
+### Webhooks
+- `POST /api/webhooks/stripe` - Handle Stripe payment events
+
+## Database Schema
+
+### Core Tables
+- `user` - User accounts and profiles
+- `storefront` - Individual seller storefronts
+- `user_storefront` - Many-to-many user-storefront relationships
+- `product` - Products/listings
+- `cart_item` - Shopping cart persistence
+- `order` - Order records
+- `order_item` - Individual items in orders
+
+### Key Relationships
+- Users can belong to multiple storefronts with different roles
+- Products belong to specific storefronts
+- Cart items are linked to both users and storefronts
+- Orders track payment status and fulfillment
+
+## Development Notes
+
+### Database Migrations
+The project uses Drizzle ORM for database management. Generate new migrations with:
+```bash
+npx drizzle-kit generate
+```
+
+Apply migrations with:
+```bash
+npm run db:migrate
+```
+
+### Stripe Configuration
+1. Set up a Stripe account and get your API keys
+2. Configure webhook endpoints in Stripe Dashboard
+3. Set the webhook secret in your environment variables
+4. Webhook URL: `https://your-domain.com/api/webhooks/stripe`
+
+### Authentication Setup
+Configure OAuth providers in your environment or use email/password authentication through NextAuth.js.
+
+## Current Limitations & Future Enhancements
+
+### Current State
+- Basic product management (no image uploads yet)
+- Single storefront checkout only
+- Simple order status tracking
+- Basic user roles
+
+### Potential Enhancements
+- Product image upload and management
+- Cross-storefront cart and checkout
+- Advanced order management and tracking
+- Review and rating system
+- Search and filtering
+- Email notifications
+- Inventory alerts
+- Shipping integration
+- Payment split configuration for platform fees
+
+## Contributing
+
+This project follows standard Git workflow practices. Please ensure all tests pass and code is properly formatted before submitting pull requests.
+
+## License
+
+This project is private and proprietary.
