@@ -13,7 +13,7 @@ export default async function SignInPage() {
     }
 
     return (
-        <div className="min-h-screen bg-green-50 font-sans flex flex-col">
+        <div className="min-h-screen bg-green-50 flex flex-col">
             <Header>
                 <Link href="/" className="flex items-center text-green-700 hover:text-green-800 transition-colors">
                     <ArrowLeft className="h-4 w-4 mr-1" />
