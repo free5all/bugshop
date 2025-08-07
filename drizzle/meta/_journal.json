@@ -8,6 +8,13 @@
       "when": 1754530418303,
       "tag": "0000_worthless_piledriver",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1754572120725,
+      "tag": "0001_lame_sasquatch",
+      "breakpoints": true
     }
   ]
 }

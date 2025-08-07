@@ -29,10 +29,10 @@ export default async function HomePage() {
             <Heart className="h-4 w-4 mr-1" />
             <span className="hidden lg:inline">Wishlist</span>
           </button>
-          <button className="items-center justify-center whitespace-nowrap text-sm font-medium transition-all h-8 rounded-md gap-1.5 px-3 text-primary-foreground hidden sm:flex hover:bg-green-700 bg-green-600 cursor-pointer">
+          <Link href="/cart" className="items-center justify-center whitespace-nowrap text-sm font-medium transition-all h-8 rounded-md gap-1.5 px-3 text-primary-foreground hidden sm:flex hover:bg-green-700 bg-green-600 cursor-pointer">
             <ShoppingCart className="h-4 w-4 mr-1" />
             <span className="hidden lg:inline">Cart (0)</span>
-          </button>
+          </Link>
           {session && session.user && (
             <UserButton user={session.user} />
           )}
@@ -68,9 +68,9 @@ export default async function HomePage() {
                 <span className="text-sm font-medium">Supplies</span>
               </Link >
             </div>
-            <button className="items-center justify-center text-sm font-medium transition-all shrink-0 outline-none h-8 rounded-md gap-1 5 px-3 text-green-200 hover:text-white hover:bg-green-600 ml-4 whitespace-nowrap hidden sm:flex cursor-pointer">
+            <Link href="/storefronts/create" className="items-center justify-center text-sm font-medium transition-all shrink-0 outline-none h-8 rounded-md gap-1 5 px-3 text-green-200 hover:text-white hover:bg-green-600 ml-4 whitespace-nowrap hidden sm:flex cursor-pointer">
               Become a Seller
-            </button>
+            </Link>
           </div>
         </div>
       </nav>
