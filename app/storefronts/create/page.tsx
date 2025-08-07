@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import Header from "@/lib/components/Header";
 import UserButton from "@/lib/components/UserButton";
 import SignInButton from "@/lib/components/SignInButton";
@@ -9,6 +10,7 @@ import { Store, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
 export default function CreateStorefront() {
+    const { data: session } = useSession();
     const router = useRouter();
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -47,8 +49,10 @@ export default function CreateStorefront() {
         <div className="min-h-screen bg-green-50">
             <Header>
                 <div className="flex items-center space-x-2 sm:space-x-4">
-                    <SignInButton />
-                    <UserButton user={null} />
+                    {!session && <SignInButton />}
+                    {session && session.user && (
+                        <UserButton user={session.user} />
+                    )}
                 </div>
             </Header>
 

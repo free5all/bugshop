@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import Header from "@/lib/components/Header";
 import UserButton from "@/lib/components/UserButton";
 import SignInButton from "@/lib/components/SignInButton";
@@ -25,6 +26,7 @@ interface CartItem {
 }
 
 export default function CheckoutPage() {
+    const { data: session, status } = useSession();
     const [cartItems, setCartItems] = useState<CartItem[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isProcessing, setIsProcessing] = useState(false);
@@ -94,13 +96,15 @@ export default function CheckoutPage() {
         }
     };
 
-    if (isLoading) {
+    if (isLoading || status === "loading") {
         return (
             <div className="min-h-screen bg-green-50">
                 <Header>
                     <div className="flex items-center space-x-2 sm:space-x-4">
-                        <SignInButton />
-                        <UserButton user={null} />
+                        {!session && <SignInButton />}
+                        {session && session.user && (
+                            <UserButton user={session.user} />
+                        )}
                     </div>
                 </Header>
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -116,8 +120,10 @@ export default function CheckoutPage() {
         <div className="min-h-screen bg-green-50">
             <Header>
                 <div className="flex items-center space-x-2 sm:space-x-4">
-                    <SignInButton />
-                    <UserButton user={null} />
+                    {!session && <SignInButton />}
+                    {session && session.user && (
+                        <UserButton user={session.user} />
+                    )}
                 </div>
             </Header>
 

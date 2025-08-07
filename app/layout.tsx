@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import SessionWrapper from "@/lib/components/SessionWrapper";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,7 +15,9 @@ export default function RootLayout({
   return (
       <html lang="en">
         <body className="antialiased font-sans">
-          {children}
+          <SessionWrapper>
+            {children}
+          </SessionWrapper>
         </body>
       </html>
   );

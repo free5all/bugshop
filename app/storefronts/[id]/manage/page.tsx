@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 import Header from "@/lib/components/Header";
 import UserButton from "@/lib/components/UserButton";
 import SignInButton from "@/lib/components/SignInButton";
@@ -26,6 +27,7 @@ interface Storefront {
 }
 
 export default function ManageStorefront() {
+    const { data: session, status } = useSession();
     const params = useParams();
     const storefrontId = params.id as string;
 
@@ -106,13 +108,15 @@ export default function ManageStorefront() {
         }
     };
 
-    if (isLoading) {
+    if (isLoading || status === "loading") {
         return (
             <div className="min-h-screen bg-green-50">
                 <Header>
                     <div className="flex items-center space-x-2 sm:space-x-4">
-                        <SignInButton />
-                        <UserButton user={null} />
+                        {!session && <SignInButton />}
+                        {session && session.user && (
+                            <UserButton user={session.user} />
+                        )}
                     </div>
                 </Header>
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -127,8 +131,10 @@ export default function ManageStorefront() {
             <div className="min-h-screen bg-green-50">
                 <Header>
                     <div className="flex items-center space-x-2 sm:space-x-4">
-                        <SignInButton />
-                        <UserButton user={null} />
+                        {!session && <SignInButton />}
+                        {session && session.user && (
+                            <UserButton user={session.user} />
+                        )}
                     </div>
                 </Header>
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -147,8 +153,10 @@ export default function ManageStorefront() {
         <div className="min-h-screen bg-green-50">
             <Header>
                 <div className="flex items-center space-x-2 sm:space-x-4">
-                    <SignInButton />
-                    <UserButton user={null} />
+                    {!session && <SignInButton />}
+                    {session && session.user && (
+                        <UserButton user={session.user} />
+                    )}
                 </div>
             </Header>
 

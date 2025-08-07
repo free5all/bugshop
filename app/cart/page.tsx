@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Header from "@/lib/components/Header";
 import UserButton from "@/lib/components/UserButton";
@@ -26,6 +27,7 @@ interface CartItem {
 }
 
 export default function CartPage() {
+    const { data: session, status } = useSession();
     const router = useRouter();
     const [cartItems, setCartItems] = useState<CartItem[]>([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -81,13 +83,15 @@ export default function CartPage() {
         return groups;
     };
 
-    if (isLoading) {
+    if (isLoading || status === "loading") {
         return (
             <div className="min-h-screen bg-green-50">
                 <Header>
                     <div className="flex items-center space-x-2 sm:space-x-4">
-                        <SignInButton />
-                        <UserButton user={null} />
+                        {!session && <SignInButton />}
+                        {session && session.user && (
+                            <UserButton user={session.user} />
+                        )}
                     </div>
                 </Header>
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -101,8 +105,10 @@ export default function CartPage() {
         <div className="min-h-screen bg-green-50">
             <Header>
                 <div className="flex items-center space-x-2 sm:space-x-4">
-                    <SignInButton />
-                    <UserButton user={null} />
+                    {!session && <SignInButton />}
+                    {session && session.user && (
+                        <UserButton user={session.user} />
+                    )}
                 </div>
             </Header>
 
