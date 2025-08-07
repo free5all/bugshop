@@ -328,7 +328,7 @@ Live and frozen food options
                 </div>
               </div>
               <div className="flex items-center p-4 pt-8">
-                <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all text-primary-foreground shadow-xs h-9 px-4 py-2 w-full bg-green-600 hover:bg-green-700 outline-none">
+                <button className="cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all text-primary-foreground shadow-xs h-9 px-4 py-2 w-full bg-green-600 hover:bg-green-700 outline-none">
                   Add to Cart
                 </button>
               </div>
@@ -356,7 +356,7 @@ Live and frozen food options
                 </div>
               </div>
               <div className="flex items-center p-4 pt-8">
-                <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all text-primary-foreground shadow-xs h-9 px-4 py-2 w-full bg-green-600 hover:bg-green-700 outline-none">
+                <button className="cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all text-primary-foreground shadow-xs h-9 px-4 py-2 w-full bg-green-600 hover:bg-green-700 outline-none">
                   Add to Cart
                 </button>
               </div>
@@ -384,7 +384,7 @@ Live and frozen food options
                 </div>
               </div>
               <div className="flex items-center p-4 pt-8">
-                <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all text-primary-foreground shadow-xs h-9 px-4 py-2 w-full bg-green-600 hover:bg-green-700 outline-none">
+                <button className="cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all text-primary-foreground shadow-xs h-9 px-4 py-2 w-full bg-green-600 hover:bg-green-700 outline-none">
                   Add to Cart
                 </button>
               </div>
@@ -413,7 +413,7 @@ Live and frozen food options
                 </div>
               </div>
               <div className="flex items-center p-4 pt-8">
-                <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all text-primary-foreground shadow-xs h-9 px-4 py-2 w-full bg-green-600 hover:bg-green-700 outline-none">
+                <button className="cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all text-primary-foreground shadow-xs h-9 px-4 py-2 w-full bg-green-600 hover:bg-green-700 outline-none">
                   Add to Cart
                 </button>
               </div>
