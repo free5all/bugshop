@@ -1,56 +1,43 @@
 import SignInButton from "@/lib/components/SignInButton";
 import { Bug, User, Heart, ShoppingCart, Search, Home, Leaf, Droplets, Thermometer, Package, ChevronRight, Shield, Truck, Users, Award, BadgeCheck, Star, MapPin, Clock } from "lucide-react";
-import { getServerSession } from "next-auth";
 import Link from "next/link";
-import { authOptions } from "./api/auth/[...nextauth]/route";
-import SignOutButton from "@/lib/components/SignOutButton";
+import UserButton from "@/lib/components/UserButton";
+import Header from "@/lib/components/Header";
+import { auth } from "@/auth";
 
 const SiteName = "ArthropodShop"
 
 export default async function HomePage() {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   return (
     <div className="min-h-screen bg-green-50 font-sans">
-      <header className="bg-white shadow-sm border-b border-green-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <Link className="flex items-center space-x-2" href="/">
-              <div className="bg-green-600 p-2 rounded-lg">
-                <span className="text-white font-semibold">
-                  <Bug className="h-6 w-6 text-white" />
-                </span>
-              </div>
-              <span className="text-xl sm:text-2xl font-bold text-green-800">{SiteName}</span>
-            </Link >
-            <div className="hidden md:flex flex-1 max-w-2xl mx-8">
-              <div className="relative w-full">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-                <input className="file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground flex h-9 min-w-0 rounded-md border bg-transparent px-3 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium md:text-sm pl-10 pr-20 py-2 w-full border-green-200 focus:border-green-400 focus:ring-green-400" type="search" placeholder="Search for bugs, supplies, and more..." />
-                <button className="inline-flex items-center justify-center gap-3 whitespace-nowrap rounded-md font-medium transition-all outline-none text-primary-foreground shadow-xs h-9 py-2 absolute right-0 top-1/2 transform -translate-y-1/2 bg-green-600 hover:bg-green-700 text-sm px-3 cursor-pointer">
-                  Search
-                </button>
-              </div>
-            </div>
-            <div className="flex items-center space-x-2 sm:space-x-4">
-              {session ? (
-                <SignOutButton />
-              ) : (
-                <SignInButton />
-              )}
-              <button className="items-center justify-center whitespace-nowrap text-sm font-medium transition-all h-8 rounded-md gap-1.5 px-3 text-green-700 hidden sm:flex hover:text-green-800 hover:bg-accent cursor-pointer">
-                <Heart className="h-4 w-4 mr-1" />
-                <span className="hidden lg:inline">Wishlist</span>
-              </button>
-              <button className="items-center justify-center whitespace-nowrap text-sm font-medium transition-all h-8 rounded-md gap-1.5 px-3 text-primary-foreground hidden sm:flex hover:bg-green-700 bg-green-600 cursor-pointer">
-                <ShoppingCart className="h-4 w-4 mr-1" />
-                <span className="hidden lg:inline">Cart (0)</span>
-              </button>
-            </div>
+      <Header>
+        <div className="hidden md:flex flex-1 max-w-2xl mx-8">
+          <div className="relative w-full">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+            <input className="file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground flex h-9 min-w-0 rounded-md border bg-transparent px-3 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium md:text-sm pl-10 pr-20 py-2 w-full border-green-200 focus:border-green-400 focus:ring-green-400" type="search" placeholder="Search for bugs, supplies, and more..." />
+            <button className="inline-flex items-center justify-center gap-3 whitespace-nowrap rounded-md font-medium transition-all outline-none text-primary-foreground shadow-xs h-9 py-2 absolute right-0 top-1/2 transform -translate-y-1/2 bg-green-600 hover:bg-green-700 text-sm px-3 cursor-pointer">
+              Search
+            </button>
           </div>
-          {/* Mobile search */}
         </div>
-      </header>
+
+        <div className="flex items-center space-x-2 sm:space-x-4">
+          {!session && <SignInButton />}
+          <button className="items-center justify-center whitespace-nowrap text-sm font-medium transition-all h-8 rounded-md gap-1.5 px-3 text-green-700 hidden sm:flex hover:text-green-800 hover:bg-accent cursor-pointer">
+            <Heart className="h-4 w-4 mr-1" />
+            <span className="hidden lg:inline">Wishlist</span>
+          </button>
+          <button className="items-center justify-center whitespace-nowrap text-sm font-medium transition-all h-8 rounded-md gap-1.5 px-3 text-primary-foreground hidden sm:flex hover:bg-green-700 bg-green-600 cursor-pointer">
+            <ShoppingCart className="h-4 w-4 mr-1" />
+            <span className="hidden lg:inline">Cart (0)</span>
+          </button>
+          {session && session.user && (
+            <UserButton user={session.user} />
+          )}
+        </div>
+      </Header>
 
       <nav className="bg-green-700 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
